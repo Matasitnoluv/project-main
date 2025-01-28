@@ -1,0 +1,139 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum TokenType {
+    ACCESS
+    REFRESH
+    RESET_PASSWORD
+    VERIFY_EMAIL
+}
+
+// User Model
+model users {
+  users_id String @id @default(uuid())
+  fullname String?
+  age Int
+  address String
+  username String @unique
+  password String
+  status_role String
+  create_date DateTime @default(now())
+  create_by String
+  update_by String
+  update_date DateTime @updatedAt
+}
+
+// Token Model
+model token {
+    id                     String   @id() @default(uuid()) @db.Uuid
+    type                   TokenType
+    ip                     String?   @db.VarChar(50)
+    device                 String?   @db.VarChar(255)
+    latitude               String?   @db.VarChar(100)
+    longitude              String?   @db.VarChar(100)
+    token                  String    @unique()
+    refresh_token           String?   @unique()
+    expiration             DateTime
+    expiration_refresh_token DateTime?
+    created_by              String  @db.Uuid
+    created_at              DateTime  @default(now())
+    updated_at              DateTime?  @updatedAt()
+
+}
+
+// Category Model
+model categories {
+  id             String   @id() @default(uuid()) @db.Uuid
+  category_name  String   @unique
+  created_at     DateTime @default(now())
+  created_by     String   @db.Uuid
+  updated_at     DateTime? @updatedAt
+  updated_by     String?  @db.Uuid
+  products       product[]
+}
+
+model master_box {
+  master_box_id String @id @default(uuid()) @db.Uuid
+  master_box_name String? @unique
+  scale_box String?
+  height Float?
+  length Float?
+  width Float?
+  cubic_centimeter_box Float?
+  create_by String?
+  create_date DateTime @default(now())
+  update_by String?
+  update_date DateTime? @updatedAt
+  description String?
+  image String?
+}
+
+model master_product {
+  master_product_id String @id @default(uuid()) @db.Uuid
+  master_product_name String? @unique
+  scale_product String?
+  height Float?
+  length Float?
+  width Float?
+  cubic_centimeter_product Float?
+  create_by String?
+  create_date DateTime @default(now())
+  update_by String?
+  update_date DateTime? @updatedAt
+  description String?
+  image String?
+}
+// Product Model
+model product {
+  id            String   @id() @default(uuid()) @db.Uuid
+  product_name  String
+  price         Float
+  category_id   String  @db.Uuid 
+  created_at    DateTime @default(now())
+  created_by    String   @db.Uuid
+  updated_at    DateTime? @updatedAt
+  updated_by    String?  @db.Uuid
+  category      categories @relation(fields: [category_id], references: [id], onDelete: Cascade)
+}
+
+model cal_msbox {
+  cal_box_id String @id() @default(uuid()) @db.Uuid
+  document_box_id String?
+  cal_box_name String?
+  scale_product String?
+  height Float
+  lenght Float
+  width Float
+  sum_volume Float
+  cubic_centimeter_calbox Float?
+  create_by String?
+  create_date DateTime @default(now())
+  update_by String?
+  update_date DateTime? @updatedAt
+  sort_by Int?
+}
+
+model cal_msproduct {
+    cal_product_id String @id() @default(uuid()) @db.Uuid
+    document_product_id String?
+    cal_product_name String
+    scale_product String
+    height Float
+    length Float
+    width Float
+    sum_volume Float
+    cubic_centimeter_calproduct Float
+    create_by String?
+    create_date DateTime? @default(now())
+    update_by String?
+    update_date DateTime? @updatedAt
+    count Int?
+    sort_by Int?
+}
+

@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "users" ALTER COLUMN "address" DROP NOT NULL,
+ALTER COLUMN "status_role" DROP NOT NULL,
+ALTER COLUMN "create_by" DROP NOT NULL,
+ALTER COLUMN "update_by" DROP NOT NULL;
