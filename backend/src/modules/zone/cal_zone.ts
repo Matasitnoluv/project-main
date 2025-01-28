@@ -1,6 +1,4 @@
 import { z } from "zod";
-ky
-
 // TypeScript Type สำหรับ Payload ที่มี Zone
 export type TypePayloadcal_msbox_with_zone = {
     zone_id: string; // ระบุ Zone
@@ -83,13 +81,3 @@ const exampleInput = {
         sort_by: 1,
     },
 };
-
-// คำนวณ volume และ cubic_centimeter_calbox
-exampleInput.body.sum_volume = calculateVolume(
-    exampleInput.body.height,
-    exampleInput.body.lenght,
-    exampleInput.body.width
-);
-exampleInput.body.cubic_centimeter_calbox = exampleInput.body.sum_volume;
-
-console.log("Calculated Box Data:", exampleInput);
