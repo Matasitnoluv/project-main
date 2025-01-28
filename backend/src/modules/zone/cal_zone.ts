@@ -1,4 +1,5 @@
 import { z } from "zod";
+ky
 
 // TypeScript Type สำหรับ Payload ที่มี Zone
 export type TypePayloadcal_msbox_with_zone = {
