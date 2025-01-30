@@ -35,7 +35,7 @@ export const authService = {
                 );
             }
 
-            const accessToken = generateAccessToken(checkUser.users_id);
+            const accessToken = generateAccessToken(checkUser.users_id); // สร้าง access token
             // ตั้งค่า HTTP-Only Cookie
             res.cookie('token', accessToken, {
                 httpOnly: true,

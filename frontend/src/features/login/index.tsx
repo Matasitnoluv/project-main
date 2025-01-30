@@ -19,6 +19,7 @@ const Login: React.FC = () => {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({ username, password }),
+				credentials: "include", //  สำคัญมาก! เพื่อให้ Cookies ถูกส่งไป-กลับ
 			});
 
 			if (response.ok) {
