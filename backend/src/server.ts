@@ -3,6 +3,7 @@ import { masterbox } from "./../node_modules/.prisma/client/index.d";
 import express, { Request, Response } from "express";
 import helmet from "helmet";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import { pino } from "pino";
 import { PrismaClient } from "@prisma/client";
 import { env } from "@common/utils/envConfig";
@@ -23,7 +24,15 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // ใช้ cookie-parser เพื่ออ่าน cookies
 
+// login
+app.use(
+    cors({
+        origin: "http://localhost:5173", //  
+        credentials: true, //  อนุญาตให้ส่ง Cookies ได้
+    })
+);
 // Middlewares
 app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(helmet());
